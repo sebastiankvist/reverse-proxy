@@ -2,7 +2,6 @@
  
 ###########################################################
 # Created by: Sebastian Kvist
-# License:
 #
 # Desc.: Reverse proxy for GET-requests against specified
 # host. See array "allowedHosts".
