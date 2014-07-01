@@ -25,28 +25,29 @@ my $hostIsOK = 0;
 $url = uri_unescape($val);
  
 if ($url eq '') {
-$url = "http://hopefullyincludedinallowedhosts.com";
+    $url = "http://hopefullyincludedinallowedhosts.com";
 }
  
 my $startIdx = index($url, "//") + 2;
 $host = substr($url, $startIdx);
  
 my $endIdx = index($host, "/");
+
 if ($endIdx > 0) {
-$host = substr($host, 0, $endIdx);
+     $host = substr($host, 0, $endIdx);
 }
  
 foreach my $allowedHost (@allowedHosts) {
-if ($host eq $allowedHost) {
-$hostIsOK = 1;
-}
+    if ($host eq $allowedHost) {
+        $hostIsOK = 1;
+    }
 }
  
 if ($hostIsOK) {
-my $response = $browser->get($url);
-print $q->header(-type=>$response->content_type, -status=>$response->status_line);
-print $response->content;
+    my $response = $browser->get($url);
+    print $q->header(-type=>$response->content_type, -status=>$response->status_line);
+    print $response->content;
 } else {
-print $q->header(-type=>'text/plain', -status=>'502 Bad Gateway');
-print "This proxy does not allow you to access that location (" . $host . ").";
+    print $q->header(-type=>'text/plain', -status=>'502 Bad Gateway');
+    print "This proxy does not allow you to access that location (" . $host . ").";
 }
